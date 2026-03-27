@@ -1,0 +1,12 @@
+.env
+
+*__pycache__
+
+ARCHITECTURE.md
+DEPLOYMENT.md
+WORKFLOW.md
+
+resume_Rose_Wabere_50_20260323_212313.pdf
+data/output
+
+docs

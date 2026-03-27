@@ -1,0 +1,31 @@
+# JobScout KE — pip install -r requirements.txt
+# After install: playwright install chromium
+
+streamlit>=1.35.0
+requests>=2.32.3
+beautifulsoup4>=4.12.3
+lxml>=5.2.2
+playwright>=1.44.0
+
+# PDF
+PyPDF2>=3.0.1
+pdfminer.six>=20221105
+fpdf2>=2.7.9
+
+# Excel
+openpyxl>=3.1.2
+
+# Notifications
+python-telegram-bot>=21.3
+
+# Data
+pandas>=2.2.2
+
+# Scheduling
+schedule>=1.2.2
+
+# Config
+python-dotenv>=1.0.1
+
+# PostgreSQL (optional — for Aiven sync)
+psycopg2-binary>=2.9.9
