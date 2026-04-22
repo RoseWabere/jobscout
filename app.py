@@ -1182,3 +1182,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# run with `streamlit run app.py`

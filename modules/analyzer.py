@@ -20,6 +20,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from config import GROQ_API_KEY, GROQ_MODEL, GROQ_URL, YOUR_NAME, YOUR_EMAIL, YOUR_PHONE
 
+import database as db
+
 # Rose's master profile — used by the LLM as context
 ROSE_PROFILE = """
 CANDIDATE: Rose Wabere
@@ -148,10 +150,21 @@ Return this exact JSON (no other text):
   "recruiter_email": "<email address found anywhere in the JD text, or empty string if none>"
 }}"""
 
+# GROQ api call from config, but with DB override if user has entered a custom key in the UI settings
+def _get_groq_key() -> str:
+    # Priority: 1. DB settings (user entered in UI), 2. config module, 3. empty
+    settings = db.load_settings()
+    db_key = settings.get("groq_key", "")
+    if db_key:
+        return db_key
+    return GROQ_API_KEY  # from config (which now reads secrets or .env)
+
 
 def _call_groq(prompt: str, max_tokens: int = 2000) -> str:
+    GROQ_API_KEY = _get_groq_key()
     if not GROQ_API_KEY:
-        raise ValueError("GROQ_API_KEY not set")
+        raise ValueError("GROQ_API_KEY not set – please add it in Settings tab or Streamlit secrets")
+    
     resp = requests.post(
         GROQ_URL,
         headers={"Authorization": f"Bearer {GROQ_API_KEY}",

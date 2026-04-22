@@ -5,13 +5,14 @@ Central configuration. All secrets come from .env.
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import streamlit as st
 
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(BASE_DIR / ".env")
 
 # ── Identity ───────────────────────────────────────────────────────────
 YOUR_NAME  = os.getenv("YOUR_NAME",  "Rose Wabere")
-YOUR_EMAIL = os.getenv("YOUR_EMAIL", "rosewabere7@gmail.com")
+YOUR_EMAIL = os.getenv("YOUR_EMAIL", "rosewabere1@gmail.com")
 YOUR_PHONE = os.getenv("YOUR_PHONE", "+254708486104")
 
 # ── Groq ───────────────────────────────────────────────────────────────
