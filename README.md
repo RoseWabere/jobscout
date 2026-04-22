@@ -31,7 +31,7 @@ Manually checking five job boards every morning, copy-pasting descriptions, rewr
 | Telegram alerts with Approve/Skip buttons | Working |
 | Telegram command bot (/scrape /status /export) | Working |
 | WhatsApp custom bot webhook forward | Working |
-| Aiven PostgreSQL mirror | Working (optional) |
+| Aiven PostgreSQL mirror | Working (additional) |
 | Excel export (3 sheets, colour-coded) | Working |
 | SQLite local database | Working |
 | Streamlit dashboard | Working |
@@ -64,12 +64,12 @@ python scheduler.py
 
 ---
 
-## Deploying so it never sleeps
+<!-- ## Deploying so it never sleeps
 
 - **Railway** — free tier, always-on, deploy in 5 minutes with a GitHub push
 - **Render** — free tier with wake-on-request, or paid always-on
 - **VPS** (Hetzner/DigitalOcean) — cheapest always-on option at ~$4/month
-- **GitHub Actions** — free cron scraping every 6 hours (no server needed)
+- **GitHub Actions** — free cron scraping every 6 hours (no server needed) -->
 
 ---
 
@@ -115,14 +115,14 @@ jobscout/
 1. Open the **Tailor + Analyse** tab in the dashboard.
 2. The jobs you approved are listed here with their full JD visible.
 3. Click **Analyse with Groq LLaMA** on any job.
-4. In about 10-15 seconds you get:
+4. In about 10-15 seconds the output is:
    - An honest ATS match score
-   - Keywords from the JD that match your profile (green chips)
-   - Skills the JD requires that you lack (red chips) — these are real gaps, not hallucinated ones
+   - Keywords from the JD that matches user profile (green chips)
+   - Skills the JD requires that you lack (red chips) — real, not hallucinated ones
    - A tailored 4-sentence professional summary using the JD's own language
    - A full 3-paragraph cover letter addressed to the actual company
    - Three specific interview tips for this role
-5. Read and edit the summary and cover letter if you want.
+5. Read and edit the summary and cover letter if needed.
 6. Click **Generate resume PDF** and **Generate cover letter PDF**.
 7. Download both files.
 8. Click **Mark as applied** once you have submitted.
