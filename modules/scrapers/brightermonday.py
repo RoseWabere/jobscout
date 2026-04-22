@@ -19,6 +19,7 @@ from ._utils import make_job, normalize_date, pw_scrape
 # BrighterMonday category + search URLs for Software/Data
 _BM_URLS = [
     "https://www.brightermonday.co.ke/listings/it-software",
+    "https://www.brightermonday.co.ke/jobs/software-data",
     "https://www.brightermonday.co.ke/listings/ict-telecommunications",
     "https://www.brightermonday.co.ke/jobs?q=data+engineer",
     "https://www.brightermonday.co.ke/jobs?q=data+analyst",
