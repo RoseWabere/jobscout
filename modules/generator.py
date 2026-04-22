@@ -1,5 +1,4 @@
 """
-modules/generator.py — JobScout KE
 Generates a proper 2-page ATS-safe resume PDF and 1-page cover letter PDF.
 
 FIXES vs previous version:
@@ -163,7 +162,7 @@ def generate_resume(
     email    = contact.get("email",    YOUR_EMAIL)
     phone    = contact.get("phone",    YOUR_PHONE)
     linkedin = contact.get("linkedin", "linkedin.com/in/rosewabere")
-    github   = contact.get("github",   "github.com/Rozieroz")
+    github   = contact.get("github",   "github.com/RoseWabere")
 
     skills = cv_skills or _SKILLS_DEFAULT
     exp    = cv_sections.get("experience","").strip()    or _EXPERIENCE

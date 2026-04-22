@@ -45,7 +45,7 @@ def scrape_myjobmag(
     """Scrape myjobmag.co.ke with keyword search."""
     cutoff = datetime.now() - timedelta(days=max_days)
     searches = keywords if keywords else [
-        "data analyst", "data engineer", "software engineer",
+        "data", "data analyst", "data engineer", "software engineer",
         "python", "ict", "developer", "analytics"
     ]
     all_jobs = []

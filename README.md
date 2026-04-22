@@ -66,8 +66,6 @@ python scheduler.py
 
 ## Deploying so it never sleeps
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the full guide. Short version:
-
 - **Railway** — free tier, always-on, deploy in 5 minutes with a GitHub push
 - **Render** — free tier with wake-on-request, or paid always-on
 - **VPS** (Hetzner/DigitalOcean) — cheapest always-on option at ~$4/month
@@ -75,7 +73,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the full guide. Short version:
 
 ---
 
-## Project files
+<!-- ## Project files
 
 ```
 jobscout/
@@ -108,7 +106,46 @@ jobscout/
     ├── uploads/              Uploaded CV PDFs
     ├── output/               Generated resume and cover letter PDFs
     └── exports/              Excel exports
-```
+``` -->
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system design.
-See [WORKFLOW.md](WORKFLOW.md) for step-by-step daily usage.
+# Workflow
+
+## Analysing a job (3 minutes per job)
+
+1. Open the **Tailor + Analyse** tab in the dashboard.
+2. The jobs you approved are listed here with their full JD visible.
+3. Click **Analyse with Groq LLaMA** on any job.
+4. In about 10-15 seconds you get:
+   - An honest ATS match score
+   - Keywords from the JD that match your profile (green chips)
+   - Skills the JD requires that you lack (red chips) — these are real gaps, not hallucinated ones
+   - A tailored 4-sentence professional summary using the JD's own language
+   - A full 3-paragraph cover letter addressed to the actual company
+   - Three specific interview tips for this role
+5. Read and edit the summary and cover letter if you want.
+6. Click **Generate resume PDF** and **Generate cover letter PDF**.
+7. Download both files.
+8. Click **Mark as applied** once you have submitted.
+
+
+
+## Score lifecycle
+
+A job's `match_score` goes through two phases:
+
+**Phase 1 — pre-filter score (0–80)**
+Assigned by `_utils.relevance_score()` at scrape time. Based purely on how many of user's target role keywords appear in the job title and description. This is only a triage signal: it prevents clearly irrelevant jobs from cluttering the feed. It never exceeds 80 so the LLM always has room to adjust upward or downward.
+
+**Phase 2 — ATS score (0–100)**
+Assigned by `analyzer.analyse()` when the user clicks "Analyse with Groq." The LLM reads the full job description and compares it strictly against the user profile. Scoring rules are explicit in the prompt: skills in the CV that the JD does not mention do not increase the score. A 75% score means genuine fit. The LLM also returns matched keywords (from the JD), missing skills (JD requirements a user lacks), a tailored 4-sentence summary using exact JD language, STAR-format achievement bullets, a full 3-paragraph cover letter, and interview tips specific to the role.
+
+# Database design
+
+A single `jobs` table with a state machine status column. Hash column provides deduplication across scrape runs, the same job posted twice on BrighterMonday will not appear twice in the database. The  PostgreSQL mirror happens on every `insert_job()` and `update_job()` call using `ON CONFLICT DO NOTHING` for inserts, thus safe to run alongside the local SQLite without conflicts.
+
+## Telegram as a control plane
+
+The scheduler doubles as a Telegram bot. It polls `/getUpdates` with message type filtering every minute. Any message in the configured chat is treated as a command. Making it possible tp start or stop scraping, request a status report, or receive an Excel file, all from Telegram without touching the computer. Makes it possible to start the entire system from phone.
+
+<!-- See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system design.
+See [WORKFLOW.md](WORKFLOW.md) for step-by-step daily usage. -->
