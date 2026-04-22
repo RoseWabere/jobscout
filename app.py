@@ -16,6 +16,22 @@ import database as db
 from modules import scrapers, analyzer, cv_parser, generator, notifier, excel_export
 
 # ==========================================================================
+# --- Ensure Playwright browsers are installed for Streamlit Cloud ---
+import subprocess
+
+@st.cache_resource
+def _install_playwright():
+    try:
+        subprocess.run(
+            ["playwright", "install", "chromium"],
+            check=True
+        )
+    except Exception:
+        pass  # avoid crashing app if already installed
+
+_install_playwright()
+
+# ==========================================================================
 #  PAGE CONFIG
 
 st.set_page_config(
