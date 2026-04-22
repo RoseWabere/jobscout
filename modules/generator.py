@@ -1,8 +1,8 @@
 """
 Generates a proper 2-page ATS-safe resume PDF and 1-page cover letter PDF.
 
-FIXES vs previous version:
-  - Resume now includes Experience, Projects, Education, Certifications
+
+  - Resume includes Experience, Projects, Education, Certifications
   - Cover letter is full-length (3 paragraphs, proper spacing)
   - Job title comes from the analysis, not the JD (prevents "Construction" as title)
   - All sections populated from Rose's master profile if CV sections are empty

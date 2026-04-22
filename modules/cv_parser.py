@@ -1,5 +1,4 @@
 """
-modules/cv_parser.py — JobScout KE
 Extracts text, skills, and contact info from a PDF CV.
 """
 import re
